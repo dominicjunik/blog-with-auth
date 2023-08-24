@@ -15,6 +15,7 @@ import Register from './pages/users/Register';
 import Login from './pages/users/Login';
 
 import Navbar from './components/Navbar';
+import OnlineUsers from './components/OnlineUsers';
 
 function App() {
 
@@ -45,7 +46,7 @@ function App() {
       } else {
           setIsLoading(false)
       }
-
+      
   }, [])
 
   let loggedIn = user.username
@@ -53,6 +54,7 @@ function App() {
   return (
     <div className="App">
       <Navbar username={loggedIn} setUser={setUser} />
+      {/* <OnlineUsers /> */}
       <Routes>
           <Route path='/' element={<Navigate to='/posts' />} />
           <Route path='/posts' element={<IndexPost user={loggedIn} />} />

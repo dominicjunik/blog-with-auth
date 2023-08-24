@@ -130,7 +130,7 @@ function Show({ user }) {
         )}
 
         <div className="buttons">
-          {user && (
+          {user === post.user && (
             <>
               <button onClick={handleDeletePost}>Delete</button>
               <button onClick={() => navigate(`/posts/${id}/edit`)}>

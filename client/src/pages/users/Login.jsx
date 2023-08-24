@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 let emptyForm = { 
@@ -40,7 +40,7 @@ function Login({ setUser }) {
               })
     
             setUser(userResponse.data)
-    
+            await axios.put('/api/users')
             navigate('/posts')
 
         } catch(err) {
@@ -50,7 +50,7 @@ function Login({ setUser }) {
 
         }
     }
-
+    
     return ( 
         <>
             <h1>Login</h1>

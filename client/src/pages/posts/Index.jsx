@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 
 import axios from 'axios'
 
-function Index() {
+function Index({user}) {
 
     const [posts, setPosts] = useState([])
 
@@ -31,7 +31,7 @@ function Index() {
                         )}
             
              
-                    <button onClick={() => navigate('/posts/new')}>NEW POST</button>
+                    {user && <button onClick={() => navigate('/posts/new')}>NEW POST</button>}
                
                 </div>
             </>

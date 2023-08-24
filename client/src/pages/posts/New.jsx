@@ -3,8 +3,8 @@ import { useRef } from "react";
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 
-function New() {
-
+function New({user}) {
+    console.log(user)
     const subjectRef = useRef()
     const bodyRef = useRef()
 
@@ -15,7 +15,8 @@ function New() {
         try {
             const newPost = {
                 subject: subjectRef.current.value,
-                body: bodyRef.current.value
+                body: bodyRef.current.value,
+                user: user               
             }
             await axios.post(`/api/posts`, newPost)
             navigate(`/posts`)

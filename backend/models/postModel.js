@@ -6,7 +6,7 @@ const Schema = mongoose.Schema
 const postSchema = new Schema({
    subject: { type: String },
    body: { type: String },
-   user: { type: String, default: 'Bob' },
+   user: { type: String },
    // comments field here
    comments: [{
       // an id referencing the comment document

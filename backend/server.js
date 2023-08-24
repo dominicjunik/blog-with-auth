@@ -28,7 +28,7 @@ app.use(express.json())
 app.use(cors())
 
 app.use('/api/posts', postRoutes)
-app.use('/api/comments', commentRoutes)
+app.use('/api/comments', authorize, commentRoutes)
 app.use('/api/users', authorize, userRoutes)
 app.use('/auth', authRoutes)
 

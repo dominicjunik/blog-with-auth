@@ -60,8 +60,8 @@ function App() {
           {loggedIn ?
             <>
               <Route path='/posts/new' element={<NewPost user={loggedIn}/>} />
-              <Route path='/posts/:id/edit' element={<EditPost />} />
-              <Route path='/comments/:id/edit' element={<EditComment />} />
+              <Route path='/posts/:id/edit' element={<EditPost user={loggedIn} />} />
+              <Route path='/comments/:id/edit' element={<EditComment user={loggedIn}/>} />
               {!isLoading && <Route path='*' element={<Navigate to='/posts' />} />}
             </>
             :

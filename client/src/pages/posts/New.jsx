@@ -18,7 +18,11 @@ function New({user}) {
                 body: bodyRef.current.value,
                 user: user               
             }
-            await axios.post(`/api/posts`, newPost)
+            await axios.post(`/api/posts`, newPost, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              })
             navigate(`/posts`)
         } catch(err) {
             console.log(err.message)

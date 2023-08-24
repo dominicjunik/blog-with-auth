@@ -24,7 +24,11 @@ function Show({ user }) {
   }
 
   async function handleDeletePost() {
-    await axios.delete(`/api/posts/${id}`);
+    await axios.delete(`/api/posts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
     navigate("/posts");
   }
 
@@ -34,7 +38,11 @@ function Show({ user }) {
 
   async function handleDeleteComment(commentId) {
     try {
-      await axios.delete(`/api/comments/${post._id}/${commentId}`);
+      await axios.delete(`/api/comments/${post._id}/${commentId}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       let updatedPost = { ...post };
       updatedPost.comments = updatedPost.comments.filter(
         (c) => c._id !== commentId
@@ -52,7 +60,11 @@ function Show({ user }) {
       text: textRef.current.value,
       user,
     };
-    const response = await axios.post(`/api/comments/${id}`, comment);
+    const response = await axios.post(`/api/comments/${id}`, comment, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      });
 
     const updatedPost = { ...post };
     updatedPost.comments.push(response.data);

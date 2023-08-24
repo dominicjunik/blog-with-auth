@@ -2,7 +2,7 @@ import axios from "axios"
 import { useState, useEffect, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 
-function Edit() {
+function Edit({ user }) {
 
     const [post, setPost] = useState({})
 
@@ -13,14 +13,24 @@ function Edit() {
     const bodyRef = useRef()
 
     async function getPost() {
+        let name = ""
         try {
-            const response = await axios.get(`/api/posts/${id}`)
+            const response = await axios.get(`/api/posts/${id}`, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              })
             console.log(response.data)
+            name = response.data.user
             setPost(response.data)
         } catch(err) {
             console.log(err.message)
         }
+        if (user !== name)  {
+            navigate('/posts')
+        }
     }
+
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -29,7 +39,11 @@ function Edit() {
                 subject: subjectRef.current.value,
                 body: bodyRef.current.value
             }
-            await axios.put(`/api/posts/${id}`, updatedPost)
+            await axios.put(`/api/posts/${id}`, updatedPost, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              })
             navigate(`/posts/${id}`)
         } catch(err) {
             console.log(err.message)

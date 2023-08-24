@@ -3,7 +3,7 @@ import { useRef, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 
 
-function Edit() {
+function Edit({ user }) {
 
     const [comment, setComment] = useState({})
 
@@ -14,7 +14,15 @@ function Edit() {
     const navigate = useNavigate()
 
     async function getComment() {
-        const response = await axios.get(`/api/comments/${params.id}`)
+        
+        const response = await axios.get(`/api/comments/${params.id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+          })
+        if (user !== response.data.user) {
+            navigate('/posts')
+        } 
         console.log(response)
         console.log('here')
         setComment(response.data)
@@ -31,7 +39,11 @@ function Edit() {
                 text: textRef.current.value,
             }
             console.log(params)
-            await axios.put(`/api/comments/${params.id}`, comment)
+            await axios.put(`/api/comments/${params.id}`, comment, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              })
             navigate(-1)
         } catch(err) {
             console.log(err)
